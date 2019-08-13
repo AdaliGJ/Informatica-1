@@ -240,22 +240,22 @@ a=$\sigma(x)$\\
 Hipótesis Inductiva: 
 x+$\sigma(\sigma(0))=\sigma(\sigma(x))$
 \[
-       \sigma(x)+\sigma(\sigma(0))=\sigma(\sigma(\sigma(0)))\\
+       \sigma(x)\oplus\sigma(\sigma(0))=\sigma(\sigma(\sigma(x)))\\
 \]
 \[
-       \sigma(x+\sigma(\sigma(0)))=\sigma(\sigma(\sigma(0)))\\
+       \sigma(x\oplus\sigma(\sigma(0)))=\sigma(\sigma(\sigma(x)))\\
 \]
 \[
-       \sigma(\sigma(\sigma(0))+x)=\sigma(\sigma(\sigma(0)))\\
+       \sigma(\sigma(\sigma(0))\oplus x)=\sigma(\sigma(\sigma(x)))\\
 \]
 \[
-       \sigma(\sigma(\sigma(0)+x))=\sigma(\sigma(\sigma(0)))\\
+       \sigma(\sigma(\sigma(0)\oplus x))=\sigma(\sigma(\sigma(x)))\\
 \]
 \[
-       \sigma(\sigma(\sigma(0+x)))=\sigma(\sigma(\sigma(0)))\\
+       \sigma(\sigma(\sigma(0\oplus x)))=\sigma(\sigma(\sigma(x)))\\
 \]
 \[
-       \sigma(\sigma(\sigma(x)))=\sigma(\sigma(\sigma(0)))\\
+       \sigma(\sigma(\sigma(x)))=\sigma(\sigma(\sigma(x)))\\
 \]
 \\\\
         \item{$a \otimes b = b \otimes a$}\\
@@ -302,9 +302,24 @@ $i \otimes a=a\otimes i$
 \[
      \sigma(i\oplus x\oplus (i \otimes x)) = \sigma(x\oplus i \oplus (x \otimes i)) \\
 \]
+Demostrar que $i\oplus x=x\oplus i$\\
+para $i=\sigma (j)$\\
+Hipótesis inductiva: $j\oplus x=x\oplus j$\\
+$\sigma(j)\oplus x=x\oplus \sigma(j)$\\
+$\sigma(j\oplus x)=x\oplus \sigma(j)$\\
+$\sigma(x\oplus j)=x\oplus \sigma(j)$\\
+$\sigma(x)\oplus j=x\oplus \sigma(j)$\\
+Demostrar para el sucesor:\\
+Hipótesis inductiva: $\sigma(x)\oplus j=x\oplus \sigma(j)$\\
+$\sigma(\sigma(x))\oplus j=\sigma(x)\oplus \sigma(j)$\\
+$\sigma(\sigma(x)\oplus j)=\sigma(x\oplus \sigma(j))$\\
+Por Hipótesis inductiva:\\
+$\sigma(\sigma(x)\oplus j)=\sigma(\sigma(x)\oplus j)$\\
+Por lo tanto $i\oplus x=x\oplus i$
 \[
      \sigma(x\oplus i\oplus (i \otimes x)) = \sigma(x\oplus i \oplus (x \otimes i)) \\
 \]
+Por Hipótesis inductiva:\\
 $x\otimes i=i\otimes x$
 \[
      \sigma(x\oplus i\oplus (x \otimes i)) = \sigma(x\oplus i \oplus (x \otimes i)) \\
@@ -343,6 +358,7 @@ Distribuir la multiplicación $b\oplus (x\otimes b))\otimes c$ (ver siguiente de
 \[
        (b\otimes c)\oplus(x \otimes (b \otimes c))= (b\otimes c) \oplus ((x\otimes b)\otimes c)
 \]
+Aplicar propedad conmutativa de la suma, explicada en la demostración anterior
 \[
        (b\otimes c)\oplus[(x \otimes (b \otimes c))= ((x\otimes b)\otimes c)]\oplus (b\otimes c)
 \]
@@ -379,6 +395,7 @@ $(x\oplus b)\otimes c = (x\otimes c) \oplus (b \otimes c)$
 \[
     c\oplus ((x\oplus b)\otimes c) = (c\oplus(x\otimes c)) \oplus (b \otimes c)   
 \]
+Aplicar propedad conmutativa de la suma, explicada dos demostraciones atrás
 \[
     c\oplus [(x\oplus b)\otimes c) = (x\otimes c)) \oplus (b \otimes c)] \oplus c
 \]
