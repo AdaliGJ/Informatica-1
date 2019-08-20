@@ -1,0 +1,217 @@
+\documentclass{article}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{c} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=[sharp]c, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.cs}
+\end{itemize}
+}
+
+\begin{document}
+
+\begin{tabular}{l l}
+\multirow{5}{*}{\includegraphics[width=2cm]{escudo.png}} & Universidad del Istmo de Guatemala \\
+ & Facultad de Ingenieria \\
+ & Ing. en Sistemas \\
+ & Informatica 1 \\
+ & Prof. Ernesto Rodriguez - \href{mailto:erodriguez@unis.edu.gt}{erodriguez@unis.edu.gt} \\
+\end{tabular}
+\\
+
+\begin{center}
+        \horrule{0.5pt}
+        \huge{Corrección Examen Parcial \#1} \\
+        \large{Samantha Rodas Chaluleu}\\
+        \large{Adalí Garrán Jiménez}\\
+        \large{Fecha de entrega: 20 de Agosto, 2019} \\
+        \horrule{1pt}
+\end{center}
+
+\section*{Ejercicio \#1}
+Demueustre las siguientes propiedades utilizando induccón. Puede hacer uso de la aritmetica para dichas demostraciones. Asegurese de indicar claramente el caso base, el caso inductivo, la hipotesis inductiva y cada paso del procedimiento.\\
+\begin{itemize}
+    \item $\forall n\geq 1.~2*n~es~par$\\
+    Caso Base: n=1
+\[
+2(1)~es~par
+\]
+\[
+R.~2~es~par.
+\]\\
+Caso Inductivo: n=n+1\\
+Hipótesis induciva: 2*n es par\\
+\[
+2(n+1)~es~par
+\]
+\[
+[2n]+2~es~par
+\]
+\begin{center}Por Hipótesis inductiva [2n] es par\\
+$\Rightarrow 2~tiene~que~ser~par$\end{center}
+\[
+R.~2~es~par
+\]
+    \item $\forall n\geq 4.~2^n<n!,~donde~n!=1*2*3*...*(n-1)*n$\\
+Caso Base: n=4\\
+\[2^4<1*2*3*4\]
+\[R.~16<24\]\\
+Caso Inductivo n=n+1\\
+Hipótesis inductiva: $\forall n \geq 4,2^n<n!$
+\[2^{n+1}<(n+1)!\]
+\[2^n*2<n!*(n+1)\]
+\[2*[2^n<n!]*(n+1)\]
+\begin{center}Asumiendo por hipótesis inductiva que $[2^n<n!]$ es cierto:\end{center}
+\[\Rightarrow Ej.\ 2 \ast 2^{5} < 5! (6)\ \ 64<720 \ (cumple)\]
+\[2\leq(n+1)\]
+\[1\leq n\]
+\[n\geq 4 \Rightarrow n\geq 1\]
+\[Cumple\]
+\end{itemize}
+\section*{Ejercicio \#2}
+Dar una definicíon inductiva para las siguientes funciones sobre los numeros naturales unarios. Consejo, se le recomienda definir y utilizar la suma y multiplicación de los numeros naturales unarios:
+\begin{itemize}
+    \item La función facorial (n!):
+    \[
+        n! := \left\{
+        \begin{array}{l l}
+            1 & \mbox{si } n=o \\
+            (x!)\otimes(\sigma(x)) & \mbox{si } n=\sigma(x) \\
+        \end{array}
+        \right.
+    \]
+    \item La función resta ($\ominus$):
+    \[
+        a\ominus b := \left\{
+        \begin{array}{l l}
+            0 & \mbox{si } a\leq b \\
+            a & \mbox{si } b=0 \\
+            \sigma(x\ominus b) & \mbox{si } a=\sigma(x)~\wedge ~ a>b \\
+        \end{array}
+        \right.
+    \]
+    \item La función sumatoria ($\sum_i^n$):
+    \[
+        \sum_i^n := \left\{
+        \begin{array}{l l}
+            n & \mbox{si } n=i \\
+            \sum_i^x\oplus \ \sigma(x) & \mbox{si } n=\sigma(x)\\
+        \end{array}
+        \right.
+    \]
+    \item La función exponente ($a^b$):
+    \[
+        a^b := \left\{
+        \begin{array}{l l}
+            1 & \mbox{si } b=0 \\
+            0 & \mbox{si } a=0 \\
+            a\otimes a^i& \mbox{si } b=\sigma(i)\\
+        \end{array}
+        \right.
+    \]
+\end{itemize}
+\section*{Ejercicio \#3}
+A continuacion se presenta la definicion de la suma y mutiplicacion de numeros unarios:
+\[
+        a\otimes b := \left\{
+        \begin{array}{l l}
+            0 & \mbox{si } a=o \\
+            0 & \mbox{si } b=o \\
+            a & \mbox{si } b=1 \\
+            b & \mbox{si } a=1 \\
+            b\oplus(x\otimes b) & \mbox{si } a=\sigma(x) \\
+        \end{array}
+        \right.
+    \]
+\[
+        a\oplus b := \left\{
+        \begin{array}{l l}
+            a & \mbox{si } b=0 \\
+            b & \mbox{si } a=0 \\
+            \sigma (x\oplus b) & \mbox{si } a=\sigma(x) \\
+        \end{array}
+        \right.
+    \]\\
+Puede utilizar una definición alterna (pero equivalente) de la suma o multiplicación si lo desea. Recuerde de indicar claramente el caso base, el caso inductivo, la hipótesis inductiva y cada paso de la demostración.\\
+$2=\sigma ( \sigma(0))$\\
+Demostrar que $2\otimes a=a\oplus a$:\\
+Caso Base: a=0\\
+\[2\otimes 0 = 0\oplus 0 \]
+2=b
+\[b\otimes 0 = 0 \]
+\[0 = 0 \]
+Caso Inductivo: $a=\sigma(x)$\\
+Hipótesis inductiva: $2\otimes x= x\oplus x$\\
+ $a=\sigma(x)$\\
+$b=\sigma(\sigma(0))$\\
+\[\sigma(\sigma(0))\otimes \sigma(x) = \sigma(x) \oplus \sigma(x)\]
+$a_1=\sigma(i)=b$\\
+$i=\sigma(0)$\\
+$b_1=\sigma(x)=a$\\
+\[a_1 \otimes b_1 = \sigma(x) \oplus \sigma(x)\]
+\[\sigma(i) \otimes b_1 = \sigma(x) \oplus \sigma(x)\]
+\[b_1\oplus (i\otimes b_1) = \sigma(x \oplus \sigma(x))\]
+\[\sigma(x)\oplus (\sigma(0)\otimes \sigma(x)) = \sigma(x \oplus \sigma(x))\]
+\[\sigma(x)\oplus (1\otimes \sigma(x)) = \sigma(x \oplus \sigma(x))\]
+\[\sigma(x)\oplus \sigma(x) = \sigma(x \oplus \sigma(x))\]
+\[\sigma(x\oplus \sigma(x)) = \sigma(x \oplus \sigma(x))\]
+k=$x\oplus \sigma(x)$
+\[\sigma(k) = \sigma(k)\]
+\end{document}
