@@ -1,0 +1,215 @@
+\documentclass{article}
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage[usenames,dvipsnames]{color} % Required for custom colors
+\usepackage{graphicx} % Required to insert images
+\usepackage{listings} % Required for insertion of code
+\usepackage{courier} % Required for the courier font
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+%----------------------------------------------------------------------------------------
+%	CODE INCLUSION CONFIGURATION
+%----------------------------------------------------------------------------------------
+
+\definecolor{MyDarkGreen}{rgb}{0.0,0.4,0.0} % This is the color used for comments
+\lstloadlanguages{c} % Load Perl syntax for listings, for a list of other languages supported see: ftp://ftp.tex.ac.uk/tex-archive/macros/latex/contrib/listings/listings.pdf
+\lstset{language=[sharp]c, % Use Perl in this example
+        frame=single, % Single frame around code
+        basicstyle=\small\ttfamily, % Use small true type font
+        keywordstyle=[1]\color{Blue}\bf, % Perl functions bold and blue
+        keywordstyle=[2]\color{Purple}, % Perl function arguments purple
+        keywordstyle=[3]\color{Blue}\underbar, % Custom functions underlined and blue
+        identifierstyle=, % Nothing special about identifiers                                         
+        commentstyle=\usefont{T1}{pcr}{m}{sl}\color{MyDarkGreen}\small, % Comments small dark green courier font
+        stringstyle=\color{Purple}, % Strings are purple
+        showstringspaces=false, % Don't put marks in string spaces
+        tabsize=5, % 5 spaces per tab
+        %
+        % Put standard Perl functions not included in the default language here
+        morekeywords={rand},
+        %
+        % Put Perl function parameters here
+        morekeywords=[2]{on, off, interp},
+        %
+        % Put user defined functions here
+        morekeywords=[3]{test},
+       	%
+        morecomment=[l][\color{Blue}]{...}, % Line continuation (...) like blue comment
+        numbers=left, % Line numbers on left
+        firstnumber=1, % Line numbers start with line 1
+        numberstyle=\tiny\color{Blue}, % Line numbers are blue and small
+        stepnumber=5 % Line numbers go in steps of 5
+}
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Creates a new command to include a perl script, the first parameter is the filename of the script (without .pl), the second parameter is the caption
+\newcommand{\perlscript}[2]{
+\begin{itemize}
+\item[]\lstinputlisting[caption=#2,label=#1]{#1.cs}
+\end{itemize}
+}
+
+\begin{document}
+
+\begin{tabular}{l l}
+\multirow{5}{*}{\includegraphics[width=2cm]{escudo.png}} & Universidad del Istmo de Guatemala \\
+ & Facultad de Ingenieria \\
+ & Ing. en Sistemas \\
+ & Informatica 1 \\
+ & Prof. Ernesto Rodriguez - \href{mailto:erodriguez@unis.edu.gt}{erodriguez@unis.edu.gt} \\
+\end{tabular}
+\\
+
+\begin{center}
+        \horrule{0.5pt}
+        \huge{Hoja de trabajo \#4} \\
+        \large{Samantha Rodas Chaluleu}\\
+        \large{Adalí Garrán Jiménez}\\
+        \large{20 de Agosto, 2019} \\
+        \horrule{1pt}
+\end{center}
+
+\section*{Ejercicio \#1}
+Indicar que definiciones corresponden al mismo conjunto:\\
+Conjunto 1:\\
+$a:=\{1,2,4,8,16,32,64\}$\\
+$d:=\{n\in\mathbb{N}\ |\ \exists i\in\mathbb{N}\ .\ n=2^i\wedge n<100 \}$\\\\
+Conjunto 2:\\
+$b:=\{n\ \in \mathbb{N}\ |\ \exists x \in \mathbb{N}\ .\ x=n/5 \}$\\
+$f:=\{ n\in\mathbb{N}\ |\ \exists x\in \mathbb{N}\ .\ n=x+x+x+x+x \}$\\\\
+Conujnto 3:\\
+$c:=\{n\in \mathbb{N}\ |\ \exists x\in\mathbb{N}\ .\ n=x*x \}$\\
+$e:=\{ n\in\mathbb{N}\ |\ \exists x\in \mathbb{N}\ .\ x=\sqrt{n} \}$\\\\
+
+\section*{Ejercicio \#2}
+Defina los conjuntos utilizando jerga matemática:
+\begin{enumerate}
+        \item{El conjunto de todos los naturales divisibles dentro de $5$}\\
+        $A:=\{n\in \mathbb{N}\ | \ n\%5=0 \}$
+        \item{El conjunto de todos los naturales divisibles dentro de $4$ y $5$}\\
+        $B:=\{n\in \mathbb{N}\ | \ n\%5=0\ \wedge \ n\%4=0 \}$
+        \item{El conjunto de todos los naturales que son primos}\\
+         $P:=\bigcap_{i\in I}\ \\I:=\forall i\in\mathbb{N}. \  \{n\in\mathbb{N}| \ n\%i\neq 0 \ \wedge \ i\neq n,1\}$
+        \item{El conjunto de todos los conjuntos de numeros naturales que contienen un numero divisible dentro de $15$}\\
+         $H:=\{X \subset P(\mathbb{N})\ |\exists x \in X  \ \wedge \ n \in X. \ x \%15=0 \}$
+        \item{El conjunto de todos los conjuntos de numeros naturales que al ser sumados
+        producen $42$ como resultado}
+        \\
+        $D:=\{X \subset P(\mathbb{N})\ |\exists x \in X \ \wedge n, i\in \mathbb{N}. \ \sum_i^n x_i = 42 \ \wedge \ n = \#(X)\ \ \wedge \ i=1\}$
+\end{enumerate}
+\section*{Ejercicio \#3}
+Definir una relación llamada $S\subset \mathbb{N}_{50}\times\mathbb{N}_{50}\times\mathbb{N}_{50}$ La cual relaciona a todos los numeros
+\emph{semi-primos} menores a $30$ con los numeros primos que lo forman. \\\\
+$P:=\bigcap_{i\in I}\ \\I:=\forall i\in\mathbb{N}. \  \{n\in\mathbb{N}| \ n\%i\neq 0 \ \wedge \ i\neq n,1\}$\\
+
+$S\subset \mathbb{N}_{50}\times\mathbb{N}_{50}\times\mathbb{N}_{50}:=\{(a, b, c)| a,b \in P \ \wedge \ c=a*b \ \wedge \ c<50\}$\\
+
+$S\subset \mathbb{N}_{50}\times\mathbb{N}_{50}\times\mathbb{N}_{50}$ :=\{$\langle2,2,4\rangle$, $\langle2,3,6\rangle$, $\langle2,5,10\rangle$, $\langle2,7,14\rangle$, $\langle2,11,22\rangle$, $\langle2,13,26\rangle$, $\langle2,17,34\rangle$, $\langle2,19,38\rangle$, $\langle2,23,46\rangle$, $\langle3,2,6\rangle$, $\langle3,3,9\rangle$, $\langle3,5,15\rangle$, $\langle3,7,21\rangle$, $\langle3,11,33\rangle$, $\langle3,13,39\rangle$, $\langle5,2,10\rangle$, $\langle5,3,15\rangle$, $\langle5,5,25\rangle$, $\langle5,7,35\rangle$, $\langle7,2,14\rangle$, $\langle7,3,21\rangle$, $\langle7,5,35\rangle$, $\langle7,7,49\rangle$, $\langle11,2,22\rangle$, $\langle11,3,33\rangle$, $\langle13,2,26\rangle$, $\langle13,3,39\rangle$, $\langle17,2,34\rangle$, $\langle19,2,38\rangle$, $\langle23,2,46\rangle$\}
+\section*{Ejercicio \#4}
+Definir los conjuntos a los que corresponden las
+siguientes funci\'ones:
+\begin{enumerate}
+        \item{$f:\mathbb{N}\rightarrow\mathbb{N}$; $f(x)=x+x$}\\
+        $\lambda x\in\mathbb{N}.x+x=\{(x,x+x)|x\in\mathbb{N}\}$
+        \item{$g:\mathbb{N}\rightarrow\mathbb{B}$; $g(x)$} es verdadero si
+        $x$ es divisible dentro de $5$, falso en caso contrario.\\
+        verdadero = 1\\
+        falso = 0\\
+        $g:=\{(x,0)|x\in\mathbb{N}. x\%5\neq0\}\cup\{(x,1)|x\in\mathbb{N}. x\%5=0\}$
+        \item{Indicar el conjunto al que pertenece la función $g\circ f$}\\
+        $\mathbb{N}\rightarrow\mathbb{B}$
+        \item{Definir el conjunto que corresponde a la función $g\circ f$}\\
+        $g\circ f:=\{(x,0)|x\in\mathbb{N}. \ 2x\%5\neq0\}\cup\{(x,1)|x\in\mathbb{N}. \ 2x\%5=0\}$
+\end{enumerate}
+\section*{Ejercicio \#5}
+Indique si la función es inyectiva, suryectiva o biyectiva para $\mathbb{R}\rightarrow \mathbb{R}$. 
+\begin{enumerate}
+        \item{$f(x)=x^2$}\\ No es inyectiva, suryectiva ni biyectiva.
+        \item{$g(x)=\frac{1}{cos(x-1)}$}\\No es inyectiva, suryectiva ni biyectiva.
+        \item{$h(x)=2x$}\\ Es inyectiva y suryectiva; por lo tanto, es biyectiva.
+        \item{$w(x)=x+1$}\\Es inyectiva y suryectiva; por lo tanto, es biyectiva.
+\end{enumerate}
+\section*{Ejercicio \#6}
+Definir una bijección entre los números naturales ($\mathbb{N}$) y los números enteros ($\mathbb{Z}$):\\
+\begin{enumerate}
+        \item Asignar a los números naturales pares un número entero positivo. $B_1=\{
+        \langle 2,1 \rangle, \langle 4,2 \rangle, \langle 6, 3 \rangle\ldots \}$ \\
+        Encontrar la pendiente y la ecuación de la recta:
+        $m=\frac{y_2 - y_1}{x_2 - x_1}$\\
+        Se utilizarán los puntos (2,1) y (4,2) como ejemplo.\\
+        $m=\frac{2 - 1}{4 - 2}$\\
+        $m=\frac{1}{2}$\\
+        \[
+y-y_1=m(x-x_1)
+\]
+      \[
+y-1=\frac{1}{2}(x-2)
+\]
+\[
+2y-2=x-2
+\]
+\[
+2y=x
+\]
+\[
+y=\frac{x}{2}
+\]\\
+Por lo tanto, $B_1:=\{(n,\frac{n}{2})|n\in\mathbb{N}.n\%2=0\}$\\
+\item Asignar a los números naturales impares un número entero negativo. $B_2=\{
+        \langle 1,-1 \rangle, \langle 3,-2 \rangle, \langle 5, -3 \rangle\ldots \}$\\
+        Encontrar la pendiente y la ecuación de la recta:
+        $m=\frac{y_2 - y_1}{x_2 - x_1}$\\
+        Se utilizarán los puntos (3,-2) y (5,-3) como ejemplo.\\
+        $m=\frac{-3 - (-2)}{5 - 3}$\\
+        $m=\frac{-1}{2}$\\
+        \[
+y-y_1=m(x-x_1)
+\]
+      \[
+y-(-2)=\frac{-1}{2}(x-3)
+\]
+\[
+2y+4=-(x-3)
+\]
+\[
+2y=-x+3-4
+\]
+\[
+y=\frac{-x-1}{2}
+\]
+\[
+y=-\frac{x+1}{2}
+\]\\
+Por lo tanto, $B_2:=\{(n,-\frac{n+1}{2})|n\in\mathbb{N}.n\%2\neq0\}$\\
+\item Asignarle el número natural 0, al número entero 0.
+\[
+        f=\left\{
+        \begin{array}{l l}
+            0 & \mbox{si } n=0 \\
+            \frac{n}{2} & \mbox{si n es par} \\
+            -\frac{n+1}{2} & \mbox{si n es impar}\\
+        \end{array}
+        \right.
+    \]\\
+\item Definir el conjunto $B:= \{\langle 0,0\rangle \}\cup B_{1} \cup B_{2}$: \\
+\begin{center}$B:= \{\langle 0,0\rangle \}\cup \{(n,\frac{n}{2})|n\in\mathbb{N}.n\%2=0\} \cup \{(n,-\frac{n+1}{2})|n\in\mathbb{N}.n\%2\neq0\}$\end{center}
+\end{enumerate}
+
+
+\end{document}
