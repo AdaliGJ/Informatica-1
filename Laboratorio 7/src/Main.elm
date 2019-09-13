@@ -1,5 +1,10 @@
 module Main exposing(..)
 
+--Adalí Garrán Jiménez
+--Estuardo Valenzuela 
+--Samantha Rodas
+
+
 --Ejercicio #1
 type Arbol = Vacio | Constructor Int Arbol Arbol 
 
