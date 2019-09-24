@@ -29,11 +29,12 @@ foldTree f inicial arb = case arb of
     Cons x arb1 arb2 -> f x (foldTree f inicial arb1) (foldTree f inicial arb2)
 
 --Ejercicio #5
-
-
-    
-
-
+filtrarFold f (Cons x arb1 arb2) =
+    let
+        arb = Cons x arb1 arb2
+        filt= if f x then [x]++(filt f arb1)++(filt f arb2) else filt f arb1++filt f arb2
+    in
+        foldTree filt [] arb
 
 
 --Funciones a utilizar
