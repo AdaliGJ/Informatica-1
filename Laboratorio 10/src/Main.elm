@@ -1,105 +1,118 @@
+--Estuardo Valenzuela
 --Adalí Garrán
 --Samantha Rodas
---Estuardo Valenzuela
 
 module Main exposing (..)
 
 import Browser
-import Html.Events exposing (onClick)
-import Html exposing (Html, div, button, text)
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
 
-
--- MAIN
-
-
-main =
-  Browser.sandbox { init = init, update = update, view = view }
+--MAIN
+main = Browser.sandbox { init = init, view = view, update = update}
 
 
 
--- MODEL
+--Funciones a Utilizar
 
 
-type alias Model = (String, String)
+mas ls = case ls of
+        [] -> ["0"]
+        [x] -> [x]
+        x :: y :: bs ->if y == "+" then mas (String.fromInt (aInt2 (aInt x) + aInt2 (aInt (primero bs))) :: otros bs)
+                       else x :: y :: mas bs
+por ls = case ls of
+        [] -> [ "0" ]
+        [x] -> [x]
+        x :: y :: bs -> if y == "x" then por (Debug.toString (aInt2 (aInt x) * aInt2 (aInt (primero bs))) :: otros bs)
+                         else x :: y :: por bs
+primero ls = case ls of
+        [] -> ""
+        x :: xs -> x
+
+otros ls = case ls of
+        [] ->[""]
+        x :: xs -> xs
+
+aInt n = String.toInt n
+aInt2 n = case n of
+  Just g -> g
+  Nothing -> 0
+    
+
+listaString ls = case ls of
+        [] -> ""
+        b :: bs -> b ++ listaString bs
+
+signo s = if s == "+" then False else if s == "x" then False else True
+
+unir ls = case ls of
+        [] -> []
+        [n] ->[n]
+        x :: y :: lista ->
+            if signo x && signo y then (x ++ y) :: unir lista
+            else if signo x == False then x :: unir (y :: lista)
+            else ([x] ++ [y]) ++ unir lista
 
 
-init : Model
-init =
-  ("0", "0")
+
+evaluar ls = primero (mas (por (unir ls)))
 
 
 
--- UPDATE
+type Model = Model String (List String) String
 
 
 type Msg
-  = Mas | Igual | Por | Numero Int | Resetear
+    = Numero String | Mas | Por | Reset | Igual
+
+
+--Forma Modelo
+
+init : Model
+init =
+    Model "0" ["0"] "0"
 
 
 update : Msg -> Model -> Model
-update msg (m1,m2)=
-  case msg of
-    Mas ->
-     (m1++"+", m2)
+update msg (Model numero modelo resultado) =
+    case msg of
+        Numero x ->
+            if numero == "0" then Model x [x] "0" 
+            else if numero == resultado then Model x [x] (resultado)
+            else Model (numero ++ x) (modelo++[x]) (resultado)
+            
+        Mas ->
+            Model (numero ++ "+") (modelo++["+"]) (resultado)
 
-    Por ->
-     (m1++"*",m2)
-    
-    Igual->
-     (m1, Debug.toString (respuesta m1))
-    
-    Numero x -> if m1 == "0" then ((Debug.toString x), m2) else ((m1++(Debug.toString x)),m2)
-    
-    Resetear->
-      ((Debug.toString 0), (Debug.toString 0)) 
-      
+        Por ->
+            Model (numero ++ "x") (modelo++["x"]) (resultado)
 
-aInt x = case x of
-  Just g -> g
-  Nothing -> 0
+        Reset ->
+            init
 
-aList x = String.toList x 
-
-caracter xs = case xs of 
-  []->[]
-  b::bs->(String.fromChar b)::(caracter bs)
-  
-
-
-suma b bs xs = 
- aInt (String.toInt (String.fromChar b ++ String.reverse (String.fromList bs))) + aInt (String.toInt (String.fromList xs))
-
-
-por b bs xs = 
-    aInt (String.toInt (String.fromChar b ++ String.reverse (String.fromList bs))) * aInt (String.toInt (String.fromList xs))
-
-ans bs xs = case (bs, xs) of
-    (ts, []) -> 0
-    ([], n::ns) -> if n == '+' then suma '0' [] ns else if n == '*' then por '0' [] ns else ans (n::[]) (ns)
-    (n::ns, c::cs) -> if c == '+' then suma n ns cs else if c == '*' then por n ns cs else ans (n::c::ns) cs
-
-respuesta modelo = ans [] (aList modelo)
-
--- VIEW
+        Igual ->
+            Model (evaluar modelo) (modelo) (evaluar modelo)
 
 
 view : Model -> Html Msg
-view (m1, m2)=
-  div []
-    [div [] [ text (m1) ]
-    , div [] [text (m2)]
-    , div [] [button [ onClick (Numero 1) ] [ text "1" ]
-    , button [ onClick (Numero 2) ] [ text "2" ]
-    , button [ onClick (Numero 3) ] [ text "3" ]]
-    , div [] [button [ onClick (Numero 4) ] [ text "4" ]
-    , button [ onClick (Numero 5) ] [ text "5" ]
-    , button [ onClick (Numero 6) ] [ text "6" ]]
-    , div [] [button [ onClick (Numero 7) ] [ text "7" ]
-    , button [ onClick (Numero 8) ] [ text "8" ]
-    , button [ onClick (Numero 9) ] [ text "9" ]]
+view (Model numero modelo resultado) =
+    div [][
+     div [] [text (listaString modelo) ]
+    , div [] [text resultado]
+    , div [] [button [ onClick (Numero "1") ] [ text "1" ]
+    , button [ onClick (Numero "2") ] [ text "2" ]
+    , button [ onClick (Numero "3") ] [ text "3" ]]
+    , div [] [button [ onClick (Numero "4") ] [ text "4" ]
+    , button [ onClick (Numero "5") ] [ text "5" ]
+    , button [ onClick (Numero "6") ] [ text "6" ]]
+    , div [] [button [ onClick (Numero "7") ] [ text "7" ]
+    , button [ onClick (Numero "8") ] [ text "8" ]
+    , button [ onClick (Numero "9") ] [ text "9" ]]
     , button [ onClick Mas ] [ text "+" ]
     , button [ onClick Por ] [ text "x" ]
     , button [ onClick Igual] [ text "=" ]
-    , div [] [button [ onClick (Numero 0) ] [ text "0" ]
-    , button [ onClick Resetear ] [ text ".Res." ]]
+    , div [] [button [ onClick (Numero "0") ] [ text "0" ]
+    , button [ onClick Reset ] [ text ".Res." ]]
     ]
